@@ -1,11 +1,12 @@
 # Program name
-NAME = megaphone
+NAME = phonebook
 
 # Directories
 OBJDIR = objs
 
 # Source files (structure pour expansion future)
-SRCS = megaphone.cpp
+SRCS = PhoneBook.cpp
+INCLUDES = PhoneBook.hpp
 
 # Object files
 OBJS = $(SRCS:%.cpp=$(OBJDIR)/%.o)
@@ -27,7 +28,7 @@ all: $(NAME)
 $(OBJDIR)/%.o: %.cpp
 	@mkdir -p $(dir $@)
 	@printf "$(CYAN)Compiling $(notdir $<)...$(RESET)\r"
-	@$(CC) $(CFLAGS) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 	@printf "$(GREEN)✓ Compiled $(notdir $<)   $(RESET)\n"
 
 $(NAME): $(OBJS)
