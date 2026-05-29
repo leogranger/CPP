@@ -2,11 +2,16 @@
 NAME = phonebook
 
 # Directories
+SRCDIR = srcs
 OBJDIR = objs
 
+SRCS_MAIN = main.cpp
+
+SRCS_FULL = $(addprefix $(SRCDIR)/,\
+	Contact.cpp PhoneBook.cpp)
 # Source files (structure pour expansion future)
-SRCS = PhoneBook.cpp
-INCLUDES = PhoneBook.hpp
+SRCS = $(SRCS_MAIN) $(SRCS_FULL)
+INCLUDES = -I.
 
 # Object files
 OBJS = $(SRCS:%.cpp=$(OBJDIR)/%.o)

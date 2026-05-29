@@ -29,7 +29,7 @@ void	printContact(Contact contact)
 
 int	check_line(std::string line)
 {
-	for (int i = 0; i < line.length(); i++)
+	for (unsigned long int i = 0; i < line.length(); i++)
 	{
 		if (std::isdigit(line[i]))
 			continue ;
