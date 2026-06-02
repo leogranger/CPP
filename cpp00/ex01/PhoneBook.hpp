@@ -37,4 +37,10 @@ class PhoneBook
 		int		_index;
 };
 
+void		printPhoneBook(std::string str);
+void		printContact(Contact contact);
+int			checkLine(std::string line);
+std::string	enterInfo(std::string print);
+Contact		createNewContact();
+
 #endif

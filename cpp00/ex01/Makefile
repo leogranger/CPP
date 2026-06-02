@@ -8,7 +8,8 @@ OBJDIR = objs
 SRCS_MAIN = main.cpp
 
 SRCS_FULL = $(addprefix $(SRCDIR)/,\
-	Contact.cpp PhoneBook.cpp)
+	Contact.cpp PhoneBook.cpp PhoneBookUtils.cpp)
+
 # Source files (structure pour expansion future)
 SRCS = $(SRCS_MAIN) $(SRCS_FULL)
 INCLUDES = -I.
