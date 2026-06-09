@@ -3,35 +3,35 @@
 Fixed::Fixed(void)
 	: _fixed(0)
 {
-	std::cout << "Fixed default constructor called" << std::endl;
+	//std::cout << "Fixed default constructor called" << std::endl;
 }
 
 Fixed::Fixed(int fixed)
 	: _fixed(fixed << _bits)
 {
-	std::cout << "Fixed integer to fixed value constructor called." << std::endl;
+	//std::cout << "Fixed integer to fixed value constructor called." << std::endl;
 }
 
 Fixed::Fixed(float fixed)
 	: _fixed(roundf(fixed * (1 << _bits)))
 {
-	std::cout << "Fixed float to fixed value constructor called." << std::endl;
+	//std::cout << "Fixed float to fixed value constructor called." << std::endl;
 }
 
 Fixed::Fixed(const Fixed& other)
 	: _fixed(other._fixed)
 {
-	std::cout << "Fixed copy constructor called" << std::endl;
+	//std::cout << "Fixed copy constructor called" << std::endl;
 }
 
 Fixed::~Fixed(void)
 {
-	std::cout << "Fixed destructor called." << std::endl;
+	//std::cout << "Fixed destructor called." << std::endl;
 }
 
 Fixed& Fixed::operator=(const Fixed& other)
 {
-	std::cout << "Copy assignment operator called" << std::endl;
+	//std::cout << "Copy assignment operator called" << std::endl;
 
 	if (this != &other)
 	{

@@ -1,4 +1,4 @@
-NAME = violence
+NAME = bsp
 
 # Directories
 INCDIR = includes
