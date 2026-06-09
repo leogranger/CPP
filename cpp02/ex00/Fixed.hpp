@@ -8,7 +8,7 @@ class Fixed
 	public :
 		Fixed(void);
 		Fixed(const Fixed& other);        // constructeur de copie
-    		Fixed(int fixed);
+		Fixed(int fixed);
 		~Fixed(void);
 		Fixed& operator=(const Fixed& other);
 		int	getRawBits(void) const;
