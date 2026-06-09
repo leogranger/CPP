@@ -129,7 +129,7 @@ Fixed	Fixed::operator*(const Fixed &other) const
 {
 	Fixed res;
 
-	res.setRawBits(this->getRawBits() * other.getRawBits());
+	res.setRawBits(this->getRawBits() * other.getRawBits() >> _bits);
 	return (res);
 }
 
@@ -137,32 +137,71 @@ Fixed	Fixed::operator/(const Fixed &other) const
 {
 	if (other.getRawBits() == 0)
 	{
-		std::cout << "Error division by 0" << std::endl;
+		std::cout << "Error: division by 0." << std::endl;
+		return 0;
 	}
 	else
 	{
 		Fixed res;
-		res.setRawBits(this->getRawBits() + other.getRawBits());
+		res.setRawBits((this->getRawBits() << _bits) / other.getRawBits());
 		return (res);
 	}
 }
 
 Fixed&	Fixed::operator++(void) //pre-increment
 {
-
+	this->setRawBits(this->getRawBits() + 1);
+	return (*this);
 }
 
 Fixed	Fixed::operator++(int)
 {
-	return (this->getRawBits() +)
+	Fixed	tmp(*this);
+	++(*this);
+	return (tmp);
 }
 
 Fixed&	Fixed::operator--(void) // pre-decrement
 {
-
+	this->setRawBits(this->getRawBits() - 1);
+	return (*this);
 }
 
 Fixed	Fixed::operator--(int)
 {
+	Fixed	tmp(*this);
+	--(*this);
+	return (tmp);
+}
 
+Fixed&	Fixed::min(Fixed &a, Fixed &b)
+{
+	if (a.getRawBits() < b.getRawBits())
+		return (a);
+	else
+		return (b);
+}
+
+const Fixed&	Fixed::min(const Fixed &a,const Fixed &b)
+{
+	if (a.getRawBits() < b.getRawBits())
+		return (a);
+	else
+		return (b);
+}
+
+Fixed&	Fixed::max(Fixed &a, Fixed &b)
+{
+	if (a.getRawBits() > b.getRawBits())
+		return (a);
+	else
+		return (b);
+}
+
+const Fixed&	Fixed::max(const Fixed &a,const Fixed &b)
+{
+	if (a.getRawBits() > b.getRawBits())
+		return (a);
+	else
+		return (b);
 }

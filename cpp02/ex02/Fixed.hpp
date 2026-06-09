@@ -32,6 +32,10 @@ class Fixed
 		void	setRawBits(int const raw);
 		int		toInt( void ) const;
 		float	toFloat( void ) const;
+		static Fixed&	min(Fixed &a, Fixed &b);
+		static const Fixed&	min(const Fixed &a,const Fixed &b);
+		static Fixed&	max(Fixed &a, Fixed &b);
+		static const Fixed&	max(const Fixed &a,const Fixed &b);
 
 	private :
 		int			_fixed;
