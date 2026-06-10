@@ -1,21 +1,25 @@
-NAME = fixed
+NAME = ScavTrap
 
 # Directories
+INCDIR = includes
+SRCDIR = srcs
 OBJDIR = objs
 
 SRCS_MAIN = main.cpp
-SRCS_CPP = ClapTrap.cpp
+
+SRCS_FULL = $(addprefix $(SRCDIR)/,\
+	ClapTrap.cpp ScavTrap.cpp)
 
 # Source files (structure pour expansion future)
-SRCS = $(SRCS_MAIN) $(SRCS_CPP)
-INCLUDES = -I.
+SRCS = $(SRCS_MAIN) $(SRCS_FULL)
+INCLUDES = -I$(INCDIR)
 
 # Object files
 OBJS = $(SRCS:%.cpp=$(OBJDIR)/%.o)
 
 # Compiler and flags
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -g -std=c++98
+CFLAGS = -Wall -Wextra -Werror -std=c++98
 
 # Colors
 GREEN = \033[0;32m
