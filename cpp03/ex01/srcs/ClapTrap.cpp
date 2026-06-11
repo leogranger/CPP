@@ -18,6 +18,15 @@ ClapTrap::ClapTrap(std::string name)
 	std::cout << "ClapTrap constructor called." << std::endl;
 }
 
+ClapTrap::ClapTrap(std::string name, int health, int energy, int attack)
+	: _name(name)
+	, _Health(health)
+	, _energyPoints(energy)
+	, _attackDamage(attack)
+{
+	std::cout << "ClapTrap constructor called." << std::endl;
+}
+
 ClapTrap::ClapTrap(const ClapTrap& other)
 	: _name(other._name)
 	, _Health(other._Health)
@@ -59,7 +68,7 @@ void ClapTrap::attack(const std::string& target)
 		return ;
 	}
 	_energyPoints -= 1;
-	std::cout << "ClapTrap " << _name << " attacks " << target << ", causing "
+	std::cout << _name << " attacks " << target << ", causing "
 		<< _attackDamage << " points of damage!" << std::endl;
 }
 
@@ -73,13 +82,13 @@ void ClapTrap::takeDamage(unsigned int amount)
 	else if (_Health <= amount)
 	{
 		_Health = 0;
-		std::cout << "ClapTrap " << _name << " takes damage, causing "
+		std::cout << _name << " takes damage, causing "
 		<< amount << " points of damage!" << std::endl;
 		std::cout << _name << " has died :(" << std::endl;
 		return ;
 	}
 	_Health -= amount;
-	std::cout << "ClapTrap " << _name << " takes damage, causing "
+	std::cout << _name << " takes damage, causing "
 		<< amount << " points of damage!" << std::endl;
 }
 
@@ -97,5 +106,5 @@ void ClapTrap::beRepaired(unsigned int amount)
 	}
 	_Health += amount;
 	_energyPoints -= 1;
-	std::cout << "Clap Trap " << _name << " is repaired with " << amount << " its health is now at: " << _Health << std::endl;
+	std::cout << _name << " is repaired with " << amount << " its health is now at: " << _Health << std::endl;
 }
