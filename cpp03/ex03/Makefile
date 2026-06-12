@@ -8,7 +8,7 @@ OBJDIR = objs
 SRCS_MAIN = main.cpp
 
 SRCS_FULL = $(addprefix $(SRCDIR)/,\
-	ClapTrap.cpp ScavTrap.cpp FragTrap.cpp)
+	ClapTrap.cpp ScavTrap.cpp FragTrap.cpp DiamondTrap.cpp)
 
 # Source files (structure pour expansion future)
 SRCS = $(SRCS_MAIN) $(SRCS_FULL)
