@@ -8,7 +8,7 @@ OBJDIR = objs
 SRCS_MAIN = main.cpp
 
 SRCS_FULL = $(addprefix $(SRCDIR)/,\
-	Animal.cpp Dog.cpp Cat.cpp)
+	Animal.cpp Dog.cpp Cat.cpp WrongAnimal.cpp WrongCat.cpp)
 
 # Source files (structure pour expansion future)
 SRCS = $(SRCS_MAIN) $(SRCS_FULL)

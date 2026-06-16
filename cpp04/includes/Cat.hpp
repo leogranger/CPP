@@ -3,10 +3,8 @@
 
 # include "Animal.hpp"
 
-class Cat : virtual public Animal
+class Cat : public Animal
 {
-	private:
-		std::string	_type;
 	public:
 		Cat(void);
 		Cat(std::string type);
