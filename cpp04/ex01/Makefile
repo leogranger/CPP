@@ -1,4 +1,4 @@
-NAME = Animal
+NAME = Brain
 
 # Directories
 INCDIR = includes
