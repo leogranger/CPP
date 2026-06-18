@@ -29,7 +29,7 @@ Brain::~Brain(void)
 
 void	Brain::setIdea(int index, std::string idea)
 {
-	if (index > 99)
+	if (index > 99 || index < 0)
 		return ;
 	ideas[index] = idea;
 }
