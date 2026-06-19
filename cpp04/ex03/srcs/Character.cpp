@@ -19,8 +19,6 @@ Character::Character(const Character& other)
 	_name = other._name;
 	for (int i = 0; i <= other.index; i++)
 	{
-		if (inventory[i])
-			delete inventory[i];
 		inventory[i] = other.inventory[i];
 	}
 	index = other.index;
@@ -34,8 +32,6 @@ Character& Character::operator=(const Character& other)
 		_name = other._name;
 		for (int i = 0; i <= other.index; i++)
 		{
-			if (inventory[i])
-				delete inventory[i];
 			inventory[i] = other.inventory[i];
 		}
 		index = other.index;
@@ -77,7 +73,6 @@ void Character::unequip(int idx)
 		return ;
 	}
 	std::cout << _name << "unequipped " << inventory[idx]->getType() << "." << std::endl;
-	delete inventory[idx];
 	index--;
 }
 
