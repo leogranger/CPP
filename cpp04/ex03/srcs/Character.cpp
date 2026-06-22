@@ -17,7 +17,7 @@ Character::Character(std::string name)
 Character::Character(const Character& other)
 {
 	_name = other._name;
-	for (int i = 0; i <= other.index; i++)
+	for (int i = 0; i < other.index; i++)
 	{
 		inventory[i] = other.inventory[i];
 	}
@@ -30,18 +30,19 @@ Character& Character::operator=(const Character& other)
 	if (this != &other)
 	{
 		_name = other._name;
-		for (int i = 0; i <= other.index; i++)
+		for (int i = 0; i < other.index; i++)
 		{
 			inventory[i] = other.inventory[i];
 		}
 		index = other.index;
 	}
 	std::cout << "Character copy assignment operator called." << std::endl;
+	return (*this);
 }
 
 Character::~Character()
 {
-	for (int i = 0; i <= index; i++)
+	for (int i = 0; i < index; i++)
 		delete inventory[i];
 	std::cout << "Character destructor called." << std::endl;
 }
@@ -62,7 +63,7 @@ void Character::equip(AMateria* m)
 	inventory[index] = m;
 	index++;
 	std::cout << _name << " equipped "
-			<< m->getType() << ".";
+			<< m->getType() << "." << std::endl;
 }
 
 void Character::unequip(int idx)
@@ -76,7 +77,7 @@ void Character::unequip(int idx)
 	index--;
 }
 
-void Character::use(int idx, Character& target)
+void Character::use(int idx, ICharacter& target)
 {
 	if (idx > 3 || idx < 0)
 	{

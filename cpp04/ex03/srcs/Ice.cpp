@@ -3,6 +3,7 @@
 Ice::Ice(void)
 	: AMateria()
 {
+	_type = "ice";
 	std::cout << "Ice default constructor called." << std::endl;
 }
 
@@ -28,5 +29,10 @@ Ice::~Ice(void)
 void	Ice::use(ICharacter& target)
 {
 	std::cout << "* shoots an ice bolt at "
-		<< target.getName() << "*";
+		<< target.getName() << "*" << std::endl;
+}
+
+AMateria*	Ice::clone(void) const
+{
+	return (new Ice(*this));
 }

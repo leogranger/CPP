@@ -23,11 +23,17 @@ MateriaSource&	MateriaSource::operator=(const MateriaSource& other)
 	}
 	index = other.index;
 	std::cout << "MateriaSource copy assignment operator called." << std::endl;
+	return (*this);
 }
 
 MateriaSource::~MateriaSource(void)
 {
-	std::cout << "MateriScource destructor called." << std::endl;
+	for (int i = 0; i < index; i++)
+	{
+		delete inventory[i];
+		inventory[i] = NULL;
+	}
+	std::cout << "MateriaSource destructor called." << std::endl;
 }
 
 void MateriaSource::learnMateria(AMateria* m)
@@ -41,10 +47,10 @@ void MateriaSource::learnMateria(AMateria* m)
 
 AMateria* MateriaSource::createMateria(std::string const & type)
 {
-	for (int i = 0;  i <= index; i++)
+	for (int i = 0;  i < index; i++)
 	{
 		if (inventory[i] && inventory[i]->getType() == type)
-			return (); // avec clone();
+			return (inventory[i]->clone()); // avec clone();
 	}
 	return (NULL);
 }
