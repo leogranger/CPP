@@ -32,12 +32,12 @@ Point& Point::operator=(const Point& other)
 	return *this;
 }
 
-int	Point::getX(void) const
+Fixed	Point::getX(void) const
 {
-	return (_x.getRawBits());
+	return (_x);
 }
 
-int	Point::getY(void) const
+Fixed	Point::getY(void) const
 {
-	return (_y.getRawBits());
+	return (_y);
 }

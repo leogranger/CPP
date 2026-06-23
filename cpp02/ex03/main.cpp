@@ -21,10 +21,19 @@ int main()
     // On vertex
     Point p4(0.0f, 0.0f);
 
+    // too close inside ?
+    Point p5(0.001f, 0.001f);
+
+    // too close outside
+    Point p6(-0.001f, 0.001f);
+
     std::cout << "p1 inside? " << bsp(a, b, c, p1) << std::endl;
     std::cout << "p2 inside? " << bsp(a, b, c, p2) << std::endl;
     std::cout << "p3 inside? " << bsp(a, b, c, p3) << std::endl;
     std::cout << "p4 inside? " << bsp(a, b, c, p4) << std::endl;
+    std::cout << "reverse order? " << bsp(c, b, a, p2) << std::endl;
+    std::cout << "p5 inside ? " << bsp(a, b, c, p5) << std::endl;
+    std::cout << "p6 inside ? " << bsp(a, b, c, p6) << std::endl;
 
     return 0;
 }

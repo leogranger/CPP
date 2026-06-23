@@ -3,13 +3,13 @@
 
 Fixed	getTriArea(Point const a, Point const b, Point const c)
 {
-	Fixed area;
-
-	area.setRawBits((a.getX() * (b.getY() - c.getY()) + b.getX()
-		* (c.getY() - a.getY()) + c.getX()
-		* (a.getY() - b.getY())) / 2);
-	if (area < 0)
-		area = area * -1;
+	Fixed area = (
+		a.getX() * (b.getY() - c.getY()) +
+		b.getX() * (c.getY() - a.getY()) +
+		c.getX() * (a.getY() - b.getY())
+		) / Fixed(2);
+	if (area < Fixed(0))
+		area = area * Fixed(-1);
 	return (area);
 }
 
