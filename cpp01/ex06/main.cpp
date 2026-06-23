@@ -4,7 +4,7 @@ int	main(int ac, char **av)
 {
 	if (ac != 2)
 	{
-		std::cout << "Only one argument is accepted." << std::endl;
+		std::cout << "You need one and only one argument." << std::endl;
 		return (0);
 	}
 	Harl		harl;
