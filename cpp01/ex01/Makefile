@@ -1,4 +1,4 @@
-NAME = zombie
+NAME = zombieHorde
 
 # Directories
 SRCDIR = srcs
