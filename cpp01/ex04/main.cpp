@@ -10,6 +10,11 @@ int	main(int ac, char **av)
 	std::string	filename(av[1]);
 	std::string	s1(av[2]);
 	std::string	s2(av[3]);
+	if (s1.empty())
+	{
+		std::cout << "s1 can't be empty." << std::endl;
+		return 0;
+	}
 	Sed	sed(filename, s1, s2);
 	sed.findAndReplace();
 	return (0);
