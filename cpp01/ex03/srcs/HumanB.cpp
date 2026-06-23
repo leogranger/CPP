@@ -1,14 +1,15 @@
 #include "HumanB.hpp"
 
 HumanB::HumanB(void)
-	: _type()
+	: _type(NULL)
 	, _name("defaultName")
 {
 	std::cout << "HumanB default constructor called." << std::endl;
 }
 
 HumanB::HumanB(std::string name)
-	: _name(name)
+	: _type(NULL)
+	, _name(name)
 {
 	std::cout << "HumanB full constructor called." << std::endl;
 }
@@ -20,7 +21,12 @@ HumanB::~HumanB(void)
 
 void	HumanB::attack(void)
 {
-	std::cout << _name + " attacks with their " + _type->getType() << std::endl;
+	if (_type == NULL)
+	{
+		std::cout << "No weapon was set." << std::endl;
+		return ;
+	}
+	std::cout << _name + " attacks with their " << _type->getType() << std::endl;
 }
 
 void	HumanB::setWeapon(Weapon &type)
