@@ -3,6 +3,8 @@
 MateriaSource::MateriaSource(void)
 {
 	index = 0;
+	for (int i = 0; i < 4; i++)
+		inventory[i] = NULL;
 	std::cout << "MateriaSource default constructor called." << std::endl;
 }
 
@@ -69,7 +71,7 @@ void MateriaSource::learnMateria(AMateria* m)
 
 AMateria* MateriaSource::createMateria(std::string const & type)
 {
-	for (int i = 0;  i < index; i++)
+	for (int i = 0;  i < 4; i++)
 	{
 		if (inventory[i] && inventory[i]->getType() == type)
 			return (inventory[i]->clone()); // avec clone();
