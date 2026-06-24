@@ -23,6 +23,8 @@ Character::Character(const Character& other)
 	{
 		if (other.inventory[i])
 			inventory[i] = other.inventory[i]->clone();
+		else
+			inventory[i] = NULL;
 	}
 	std::cout << "Character copy constructor called." << std::endl;
 }
@@ -67,6 +69,8 @@ std::string const & Character::getName() const
 
 void Character::equip(AMateria* m)
 {
+	if (!m)
+		return ;
 	for (int i = 0; i < 4; i++)
 	{
 		if (!inventory[i])
@@ -79,17 +83,17 @@ void Character::equip(AMateria* m)
 		}
 	}
 	std::cout << "No empty inventory slot." << std::endl;
+	delete m;
 }
 
 void Character::unequip(int idx)
 {
-	if (idx > 3 || idx < 0)
+	if (idx > 3 || idx < 0 || !inventory[idx])
 	{
 		std::cout << "Index out of inventory." << std::endl;
 		return ;
 	}
 	std::cout << _name << " unequipped " << inventory[idx]->getType() << "." << std::endl;
-	delete inventory[idx];
 	inventory[idx] = 0;
 }
 

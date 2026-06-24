@@ -42,6 +42,8 @@ int main()
     std::cout << "\n=== Unequip test (VERY IMPORTANT) ===\n";
 
     me->unequip(1);
+    delete tmp2;
+    tmp2 = NULL;
     me->use(1, *bob); // should do nothing
 
     std::cout << "\n=== Memory ownership test ===\n";
@@ -49,8 +51,13 @@ int main()
     AMateria* leakTest = new Cure();
     me->equip(leakTest);
 
-    me->unequip(0);
+    me->unequip(1);
     delete leakTest; // should NOT double delete
+    leakTest = NULL;
+
+    me->unequip(0);
+    delete tmp1;
+    tmp1 = NULL;
 
     std::cout << "\n=== Deep copy test ===\n";
 
@@ -63,8 +70,6 @@ int main()
 
     original.use(0, *bob);
     copy.use(0, *bob);
-
-    copy.unequip(0);
 
     std::cout << "\n=== Assignment operator test ===\n";
 
