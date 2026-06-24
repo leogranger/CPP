@@ -2,7 +2,6 @@
 
 Character::Character(void)
 	: _name("")
-	, index(0)
 {
 	for (int i = 0; i < 4; i++)
 		inventory[i] = NULL;
@@ -11,7 +10,6 @@ Character::Character(void)
 
 Character::Character(std::string name)
 	: _name(name)
-	, index(0)
 {
 	for (int i = 0; i < 4; i++)
 		inventory[i] = NULL;
@@ -21,11 +19,11 @@ Character::Character(std::string name)
 Character::Character(const Character& other)
 {
 	_name = other._name;
-	for (int i = 0; i < other.index; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		inventory[i] = other.inventory[i]->clone();
+		if (other.inventory[i])
+			inventory[i] = other.inventory[i]->clone();
 	}
-	index = other.index;
 	std::cout << "Character copy constructor called." << std::endl;
 }
 
@@ -47,16 +45,16 @@ Character& Character::operator=(const Character& other)
 			else
 				this->inventory[i] = 0;
 		}
-		this->index = other.index;
 	}
 	return (*this);
 }
 
 Character::~Character()
 {
-	for (int i = 0; i < index; i++)
+	for (int i = 0; i < 4; i++)
 	{
-		delete inventory[i];
+		if (inventory[i])
+			delete inventory[i];
 		inventory[i] = 0;
 	}
 	std::cout << "Character destructor called." << std::endl;
@@ -69,16 +67,18 @@ std::string const & Character::getName() const
 
 void Character::equip(AMateria* m)
 {
-	if (index > 3)
+	for (int i = 0; i < 4; i++)
 	{
-		std::cout << _name << " can't store more AMateria, he needs to drop one."
-				<< std::endl;
-		return ;
+		if (!inventory[i])
+		{
+			inventory[i] = m;
+			std::cout << _name << " equipped "
+				<< m->getType() 
+				<< "." << std::endl;
+			return ;
+		}
 	}
-	inventory[index] = m;
-	index++;
-	std::cout << _name << " equipped "
-			<< m->getType() << "." << std::endl;
+	std::cout << "No empty inventory slot." << std::endl;
 }
 
 void Character::unequip(int idx)
@@ -91,7 +91,6 @@ void Character::unequip(int idx)
 	std::cout << _name << " unequipped " << inventory[idx]->getType() << "." << std::endl;
 	delete inventory[idx];
 	inventory[idx] = 0;
-	index--;
 }
 
 void Character::use(int idx, ICharacter& target)

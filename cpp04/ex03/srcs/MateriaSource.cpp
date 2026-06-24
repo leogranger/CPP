@@ -2,7 +2,8 @@
 
 MateriaSource::MateriaSource(void)
 {
-	index = 0;
+	for (int i = 0; i < 4; i++)
+		inventory[i] = 0;
 	std::cout << "MateriaSource default constructor called." << std::endl;
 }
 
@@ -15,7 +16,6 @@ MateriaSource::MateriaSource(const MateriaSource& other)
 		else
 			inventory[i] = 0;
 	}
-	index = other.index;
 	std::cout << "MateriaSource copy constructor called." << std::endl;
 }
 
@@ -37,7 +37,6 @@ MateriaSource&	MateriaSource::operator=(const MateriaSource& other)
 				this->inventory[i] = 0;
 		}
 	}
-	index = other.index;
 	std::cout << "MateriaSource copy assignment operator called." << std::endl;
 	return (*this);
 }
@@ -56,20 +55,22 @@ void MateriaSource::learnMateria(AMateria* m)
 {
 	if (!m)
 		return ;
-	if (index > 3)
+	for (int i = 0; i < 4; i++)
 	{
-		std::cout << "No room left to learn Materia." << std::endl;
-		delete m;
-		return ;
+		if (!inventory[i])
+		{
+			inventory[i] = m;
+			std::cout << m->getType()
+				<< " has been learnt." << std::endl;
+			return ;
+		}
 	}
-	inventory[index] = m;
-	std::cout << m->getType() << " has been learnt." << std::endl;
-	index++;
+	std::cout << "No room left in inventory to learn new materia." << std::endl;
 }
 
 AMateria* MateriaSource::createMateria(std::string const & type)
 {
-	for (int i = 0;  i < index; i++)
+	for (int i = 0;  i < 4; i++)
 	{
 		if (inventory[i] && inventory[i]->getType() == type)
 			return (inventory[i]->clone()); // avec clone();
