@@ -1,29 +1,23 @@
 #include "Fixed.hpp"
 #include "Point.hpp"
 
-Fixed	getTriArea(Point const a, Point const b, Point const c)
+Fixed	sign(Point const a, Point const b, Point const c)
 {
-	Fixed area = (
-		a.getX() * (b.getY() - c.getY()) +
-		b.getX() * (c.getY() - a.getY()) +
-		c.getX() * (a.getY() - b.getY())
-		) / Fixed(2);
-	if (area < Fixed(0))
-		area = area * Fixed(-1);
-	return (area);
+	return (((b.getX() - a.getX()) * (c.getY() - a.getY()))
+		- ((b.getY() - a.getY()) * (c.getX() - a.getX())));
 }
 
 bool bsp(Point const a, Point const b, Point const c, Point const point)
 {
-	Fixed AreaOne = getTriArea(a, b, point);
-	Fixed AreaTwo = getTriArea(a, c, point);
-	Fixed AreaThree = getTriArea(b, c, point);
-	Fixed AreaTotal = getTriArea(a, b ,c);
+	Fixed d1 = sign(a, b, point);
+	Fixed d2 = sign(b, c, point);
+	Fixed d3 = sign(c, a, point);
 
-	if (AreaOne == 0 || AreaTwo == 0 || AreaThree == 0)
-		return (false);
-	else if (AreaOne + AreaTwo + AreaThree == AreaTotal)
-		return (true);
-	else
-		return (false);
+	if (d1 == 0 || d2 == 0 || d3 == 0)
+		return false;
+
+	bool hasNeg = (d1 < 0) || (d2 < 0) || (d3 < 0);
+	bool hasPos = (d1 > 0) || (d2 > 0) || (d3 > 0);
+
+	return !(hasNeg && hasPos);
 }

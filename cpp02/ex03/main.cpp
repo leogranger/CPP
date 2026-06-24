@@ -21,7 +21,7 @@ int main()
     // On vertex
     Point p4(0.0f, 0.0f);
 
-    // too close inside ?
+    // too close inside
     Point p5(0.001f, 0.001f);
 
     // too close outside
