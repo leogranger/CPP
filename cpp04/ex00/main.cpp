@@ -6,24 +6,34 @@
 
 int main()
 {
-	const Animal* meta = new Animal();
-	const Animal* j = new Dog();
-	const Animal* i = new Cat();
+	std::cout << "\n=== Subject Test ===\n";
 
-	std::cout << j->getType() << " " << std::endl;
-	std::cout << i->getType() << " " << std::endl;
+    const Animal* meta = new Animal();
+    const Animal* dog = new Dog();
+    const Animal* cat = new Cat();
 
-	i->makeSound(); //will output the cat sound!
-	j->makeSound();
-	meta->makeSound();
+    std::cout << dog->getType() << std::endl;
+    std::cout << cat->getType() << std::endl;
 
-	WrongAnimal* animal = new WrongCat();
+    dog->makeSound();
+    cat->makeSound();
+    meta->makeSound();
 
-	animal->makeSound();
+    delete meta;
+    delete dog;
+    delete cat;
 
-	delete i;
-	delete j;
-	delete meta;
+    std::cout << "\n=== Wrong Animal Test ===\n";
 
-	return 0;
+    const WrongAnimal* wa = new WrongAnimal();
+    const WrongAnimal* wc = new WrongCat();
+
+    std::cout << wc->getType() << std::endl;
+
+    wa->makeSound();
+    wc->makeSound();
+
+    delete wa;
+    delete wc;
+
 }

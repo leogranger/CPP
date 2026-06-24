@@ -8,8 +8,13 @@ MateriaSource::MateriaSource(void)
 
 MateriaSource::MateriaSource(const MateriaSource& other)
 {
-	for(int i = 0; other.inventory[i]; i++)
-		inventory[i] = other.inventory[i];
+	for(int i = 0; i < 4; i++)
+	{
+		if (other.inventory[i])
+			inventory[i] = other.inventory[i]->clone();
+		else
+			inventory[i] = 0;
+	}
 	index = other.index;
 	std::cout << "MateriaSource copy constructor called." << std::endl;
 }
@@ -18,8 +23,19 @@ MateriaSource&	MateriaSource::operator=(const MateriaSource& other)
 {
 	if (this != &other)
 	{
-		for(int i = 0; other.inventory[i]; i++)
-			inventory[i] = other.inventory[i];
+		for (int i = 0; i < 4; i++)
+		{
+			if (this->inventory[i])
+				delete this->inventory[i];
+			this->inventory[i] = 0;
+		}
+		for (int i = 0; i < 4; i++)
+		{
+			if (other.inventory[i])
+				this->inventory[i] = other.inventory[i]->clone();
+			else
+				this->inventory[i] = 0;
+		}
 	}
 	index = other.index;
 	std::cout << "MateriaSource copy assignment operator called." << std::endl;
@@ -28,7 +44,7 @@ MateriaSource&	MateriaSource::operator=(const MateriaSource& other)
 
 MateriaSource::~MateriaSource(void)
 {
-	for (int i = 0; i < index; i++)
+	for (int i = 0; i < 4; i++)
 	{
 		delete inventory[i];
 		inventory[i] = NULL;
@@ -38,8 +54,14 @@ MateriaSource::~MateriaSource(void)
 
 void MateriaSource::learnMateria(AMateria* m)
 {
+	if (!m)
+		return ;
 	if (index > 3)
+	{
 		std::cout << "No room left to learn Materia." << std::endl;
+		delete m;
+		return ;
+	}
 	inventory[index] = m;
 	std::cout << m->getType() << " has been learnt." << std::endl;
 	index++;

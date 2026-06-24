@@ -24,9 +24,8 @@ Cat& Cat::operator=(const Cat& other)
 	if (this != &other)
 	{
 		AAnimal::operator=(other);
-		Brain	*tmp = new Brain(*other.CatBrain);
 		delete CatBrain;
-		CatBrain = tmp;
+		CatBrain = new Brain(*other.CatBrain);;
 
 	}
 	std::cout << "Cat copy assignement operator called." << std::endl;
