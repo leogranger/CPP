@@ -1,6 +1,7 @@
 #pragma once
 
 # include "AForm.hpp"
+# include "Bureaucrat.hpp"
 
 class ShrubberyCreationForm : public AForm
 {
@@ -12,5 +13,5 @@ class ShrubberyCreationForm : public AForm
 		ShrubberyCreationForm(const ShrubberyCreationForm& other);
 		~ShrubberyCreationForm(void);
 		ShrubberyCreationForm& operator=(const ShrubberyCreationForm& other);
-		void	createTree(void);
+		void	execute(Bureaucrat const & executor) const;
 };

@@ -1,4 +1,4 @@
-NAME = form
+NAME = moreForms
 
 # Directories
 SRCDIR = .
@@ -7,7 +7,7 @@ OBJDIR = objs
 # Source files (structure pour expansion future)
 SRCS_MAIN = main.cpp
 SRCS_BUREAUCRAT = Bureaucrat/Bureaucrat.cpp
-SRCS_FORM = Form/Form.cpp
+SRCS_FORM = AForm/AForm.cpp AForm/PresidentialPardonForm.cpp AForm/RobotomyRequestForm.cpp AForm/ShrubberyCreationForm.cpp
 
 SRCS = $(SRCS_MAIN) $(SRCS_BUREAUCRAT) $(SRCS_FORM)
 

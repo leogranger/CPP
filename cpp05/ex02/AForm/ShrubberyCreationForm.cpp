@@ -35,35 +35,39 @@ ShrubberyCreationForm& ShrubberyCreationForm::operator=(const ShrubberyCreationF
 	return (*this);
 }
 
-void	ShrubberyCreationForm::createTree(void)
+void	ShrubberyCreationForm::execute(Bureaucrat const & executor) const
 {
-	std::ofstream newFile(_target + std::string("_shrubbery").c_str());
+	if (executor.getGrade() > this->getexecGrade())
+		throw AForm::GradeTooLowException();
+	if (!this->getisSigned())
+		throw FormNotSignedException();
+	std::ofstream newFile((_target + "_shrubbery").c_str());
 	if (newFile)
 	{
 		newFile << "            .        +          .      .          ." << std::endl
 				<< "     .            _        .                    ." << std::endl
 				<< "  ,              /;-._,-.____        ,-----.__" << std::endl
 				<< " ((        .    (_:#::_.:::. `-._   /:, /-._, `._," << std::endl
-				<< "  `                 \   _|`'=:_::.`.);  \ __/ /" << std::endl
-				<< "                      ,    `./  \:. `.   )==-'  ." << std::endl
-				<< "    .      ., ,-=-.  ,\, +#./`   \:.  / /           ." << std::endl
-				<< ".           \/:/`-' , ,\ '` ` `   ): , /_  -o" << std::endl
-				<< "       .    /:+- - + +- : :- + + -:'  /(o-) \)     ." << std::endl
-				<< "  .      ,=':  \    ` `/` ' , , ,:' `'--'.--'---._/`7" << std::endl
-				<< "   `.   (    \: \,-._` ` + '\, ,'   _,--._,---'o.__/" <<std::endl
-				<< "              \:  `  X` _| _,\/'   .-'" << std::endl
-				<< ".               ':._:'\____  /:\  /      .           ." << std::endl
-				<< "                    \::.  :\/:'  /              +" << std::endl
+				<< "  `                     _|`'=:_::.`.);  | __/ /" << std::endl
+				<< "                      ,    `./   |:. `.   )==-'  ." << std::endl
+				<< "    .      ., ,-=-.  ,|, +#./`   |:.  / /           ." << std::endl
+				<< ".            /:/`-' ,  | '` ` `   ): , /_  -o" << std::endl
+				<< "       .    /:+- - + +- : :- + + -:'  /(o-) |)     ." << std::endl
+				<< "  .      ,=':  |    ` `/` ' , , ,:' `'--'.--'---._/`7" << std::endl
+				<< "   `.   (    |: |,-._` ` + ' |, ,'   _,--._,---'o.__/" <<std::endl
+				<< "              |:  `  X` _| _,|/'   .-'" << std::endl
+				<< ".               ':._:'|____  /::  /      .           ." << std::endl
+				<< "                    |::.  : |:'  /              +" << std::endl
 				<< "   .                 `.:.  /:'  }      ." << std::endl
-				<< "           .           ):_(:;   \           ." << std::endl
+				<< "           .           ):_(:;   |           ." << std::endl
 				<< "                      /:. _/ ,  |" << std::endl
 				<< "                   . (|::.     ,`                  ." << std::endl
 				<< "     .                |::.    { |" << std::endl
-				<< "                      |::.\  \ `." << std::endl
-				<< "                      |::::\    |" << std::endl
+				<< "                      |::.     `." << std::endl
+				<< "                      |::::     |" << std::endl
 				<< "              O       |:::/{ }  |                  (o" << std::endl
-				<< "               )  ___/#\::`/ (O ''==._____   O, (O  /`" << std::endl
-				<< "          ~~~w/w~o~~,\o `:/,-(~`'~~~~~~~~.o~\~/~w|/~" << std::endl;
+				<< "               )  ___/#:::`/ (O ''==._____   O, (O  /`" << std::endl
+				<< "          ~~~w/w~o~~,|o `:/,-(~`'~~~~~~~~.o~|~/~w|/~" << std::endl;
 	}
 	else
 		std::cout << "Couldn't open file from form: " << this->getName() << std::endl;

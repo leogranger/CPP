@@ -88,13 +88,11 @@ std::ostream &operator<<(std::ostream &out, const AForm &AForm)
 
 void		AForm::execute(Bureaucrat const & executor) const
 {
-	try
-	{
-		
-	}
-	catch(const std::exception& e)
-	{
-		std::cout << e.what() << std::endl;
-	}
-	
+	if (executor.getGrade() > _execGrade)
+		throw GradeTooLowException();
+	if (!this->_signed)
+		throw FormNotSignedException();
+	std::cout << executor.getName()
+			<< " executed " << _name
+			<< std::endl;
 }

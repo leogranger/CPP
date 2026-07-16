@@ -2,7 +2,9 @@
 
 # include <iostream>
 # include <exception>
-# include "Form.hpp"
+# include <fstream>
+# include <string>
+# include "AForm/AForm.hpp"
 
 class Bureaucrat
 {
@@ -11,12 +13,15 @@ class Bureaucrat
 		Bureaucrat(std::string name, int grade);
 		Bureaucrat(const Bureaucrat &other);
 		~Bureaucrat(void);
+
 		Bureaucrat&	operator=(const Bureaucrat &other);
 		std::string	getName(void) const;
 		int			getGrade(void) const;
 		void		incrementGrade(void);
 		void		decrementGrade(void);
-		void		signForm(Form &form);
+		void		signForm(AForm &form);
+		void		executeForm(AForm const & form) const;
+
 		class GradeTooHighException : public std::exception
 		{
 			virtual const char*	what() const throw(){
