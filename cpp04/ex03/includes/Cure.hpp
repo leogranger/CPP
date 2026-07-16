@@ -10,7 +10,7 @@ class Cure : public AMateria
 		Cure(const Cure& other);
 		Cure&	operator=(const Cure& other);
 		~Cure(void);
-		void	use(ICharacter& target);
+		void		use(ICharacter& target);
 		AMateria*	clone(void) const;
 };
 

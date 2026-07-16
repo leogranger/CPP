@@ -6,8 +6,9 @@ Brain::Brain(void)
 }
 
 Brain::Brain(const Brain& other)
-	:ideas(other.ideas)
 {
+	for (int i = 0; i < 100; i++)
+			this->ideas[i] = other.ideas[i];
 	std::cout << "Brain copy constructor called." << std::endl;
 }
 
@@ -15,7 +16,7 @@ Brain& Brain::operator=(const Brain& other)
 {
 	if (this != &other)
 	{
-		for (int i; i < 100; i++)
+		for (int i = 0; i < 100; i++)
 			this->ideas[i] = other.ideas[i];
 	}
 	std::cout << "Brain copy assignment operator called." << std::endl;

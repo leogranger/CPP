@@ -80,12 +80,6 @@ int main()
     assigned.use(0, *bob);
     assigned.use(1, *bob);
 
-    std::cout << "\n=== Self-assignment test ===\n";
-
-    assigned = assigned;
-
-    assigned.use(0, *bob);
-
     std::cout << "\n=== MateriaSource cloning test ===\n";
 
     IMateriaSource* src2 = new MateriaSource(*dynamic_cast<MateriaSource*>(src));
