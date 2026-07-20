@@ -1,6 +1,20 @@
 #pragma once
 
 #include <iostream>
+#include <cmath>
+#include <climits>
+#include <iomanip>
+#include <errno.h>
+#include <string>
+
+typedef enum
+{
+	CHAR,
+	INT,
+	FLOAT,
+	DOUBLE,
+	SPECIAL
+} literalType;
 
 class ScalarConverter
 {
@@ -9,10 +23,7 @@ class ScalarConverter
 		ScalarConverter(const ScalarConverter& other);
 		ScalarConverter&	operator=(const ScalarConverter& other);
 		~ScalarConverter(void);
-		static void	convert(std::string literal);
+		static void	convert(const std::string &literal);
 };
 
-// to char: c_str()
-// to int : stoi()
-// to float: atof()
-// to double: stod()
+int	checkType(const std::string &toCheck);

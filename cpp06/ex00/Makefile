@@ -6,7 +6,7 @@ OBJDIR = objs
 
 # Source files
 SRCS_MAIN = main.cpp
-SRCS_CONVERTER = ScalarConverter.cpp
+SRCS_CONVERTER = ScalarConverter/ScalarConverter.cpp ScalarConverter/ScalarConverterUtils.cpp
 
 SRCS = $(SRCS_MAIN) $(SRCS_CONVERTER)
 
@@ -17,7 +17,7 @@ OBJS = $(SRCS:%.cpp=$(OBJDIR)/%.o)
 
 # Compiler and flags
 CC = c++
-CFLAGS = -Wall -Wextra -Werror -std=c++98
+CFLAGS = -Wall -Wextra -Werror -g -std=c++98
 
 # Colors
 GREEN = \033[0;32m

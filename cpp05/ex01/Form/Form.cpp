@@ -1,5 +1,5 @@
 #include "Form.hpp"
-#include "Bureaucrat.hpp"
+#include "../Bureaucrat/Bureaucrat.hpp"
 
 Form::Form(void)
 	:_name("Default name")
