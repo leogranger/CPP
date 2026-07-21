@@ -13,13 +13,9 @@ int	main(void)
 	uintptr_t	raw;
 
 	std::cout << "Before serialization: " << &data << std::endl;
-
 	raw = serie.serialize(&data);
-
 	std::cout << "After serialization: " << &data << std::endl;
-
 	Data*	returnedData = serie.deserialize(raw);
-
 	std::cout << "The return value after deserialization: " << returnedData << std::endl;
 
 	return (0);
