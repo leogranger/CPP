@@ -1,7 +1,7 @@
 #pragma once
 
 # include "AForm.hpp"
-# include "Bureaucrat.hpp"
+# include "../Bureaucrat/Bureaucrat.hpp"
 
 class PresidentialPardonForm : public AForm
 {

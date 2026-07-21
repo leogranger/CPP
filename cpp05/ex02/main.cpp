@@ -1,4 +1,4 @@
-#include "Bureaucrat.hpp"
+#include "Bureaucrat/Bureaucrat.hpp"
 #include "AForm/PresidentialPardonForm.hpp"
 #include "AForm/ShrubberyCreationForm.hpp"
 #include "AForm/RobotomyRequestForm.hpp"
@@ -8,28 +8,28 @@
 int	main(void)
 {
 	std::srand(std::time(NULL));
-	// Bureaucrat	Boss("Jim", 1);
-	// Bureaucrat	Employee("Pat", 50);
-	// Bureaucrat	Worker("Kurt", 150);
+	Bureaucrat	Boss("Jim", 1);
+	Bureaucrat	Employee("Pat", 50);
+	Bureaucrat	Worker("Kurt", 150);
 
-	// PresidentialPardonForm	Pardon("James");
-	// ShrubberyCreationForm	Tree("bigTree");
-	// RobotomyRequestForm		Robot("Frank");
+	PresidentialPardonForm	Pardon("James");
+	ShrubberyCreationForm	Tree("bigTree");
+	RobotomyRequestForm		Robot("Frank");
 
-	// try
-	// {
-	// 	Pardon.beSigned(Boss);
-	// 	Tree.beSigned(Boss);
-	// 	Robot.beSigned(Boss);
+	try
+	{
+		Pardon.beSigned(Boss);
+		Tree.beSigned(Boss);
+		Robot.beSigned(Boss);
 
-	// 	Pardon.execute(Boss);
-	// 	Tree.execute(Boss);
-	// 	Robot.execute(Boss);
-	// }
-	// catch(const std::exception& e)
-	// {
-	// 	std::cout << e.what() << std::endl;
-	// }
+		Pardon.execute(Boss);
+		Tree.execute(Boss);
+		Robot.execute(Boss);
+	}
+	catch(const std::exception& e)
+	{
+		std::cout << e.what() << std::endl;
+	}
 	std::cout << "========== SHRUBBERY ==========\n";
     try
     {

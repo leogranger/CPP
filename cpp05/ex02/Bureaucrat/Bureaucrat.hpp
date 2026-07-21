@@ -4,7 +4,8 @@
 # include <exception>
 # include <fstream>
 # include <string>
-# include "AForm/AForm.hpp"
+
+class AForm;
 
 class Bureaucrat
 {

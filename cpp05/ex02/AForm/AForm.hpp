@@ -2,6 +2,7 @@
 
 # include <iostream>
 # include <exception>
+# include "../Bureaucrat/Bureaucrat.hpp"
 
 class Bureaucrat;
 
