@@ -1,6 +1,6 @@
 #pragma once
 
-#include <cstddef>
+# include <cstddef>
 # include <iostream>
 
 template<typename T_array, typename T_function>

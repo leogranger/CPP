@@ -19,10 +19,12 @@ typedef enum
 class ScalarConverter
 {
 	public:
+
 		ScalarConverter(void);
 		ScalarConverter(const ScalarConverter& other);
 		ScalarConverter&	operator=(const ScalarConverter& other);
 		~ScalarConverter(void);
+
 		static void	convert(const std::string &literal);
 };
 
