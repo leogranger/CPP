@@ -1,4 +1,4 @@
-NAME = base
+NAME = whatever
 
 # Directories
 SRCDIR = .
@@ -6,11 +6,10 @@ OBJDIR = objs
 
 # Source files
 SRCS_MAIN = main.cpp
-SRCS_CONVERTER = Base/Base.cpp
 
-SRCS = $(SRCS_MAIN) $(SRCS_CONVERTER)
+SRCS = $(SRCS_MAIN)
 
-INCLUDES = -I. -IBase
+INCLUDES = -I.
 
 # Object files
 OBJS = $(SRCS:%.cpp=$(OBJDIR)/%.o)
