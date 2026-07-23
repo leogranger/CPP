@@ -12,7 +12,8 @@ BitcoinExchange::~BitcoinExchange(void)
 }
 
 BitcoinExchange::BitcoinExchange(const BitcoinExchange& other)
-	:_map(other._map)
+	:_mapInput(other._mapInput)
+	,_mapData(other._mapData)
 {
 	//std::cout << "BitcoinExchange copy constructor called." << std::endl;
 }
@@ -21,13 +22,14 @@ BitcoinExchange&	BitcoinExchange::operator=(const BitcoinExchange& other)
 {
 	if (this != &other)
 	{
-		this->_map = other._map;
+		this->_mapInput = other._mapInput;
+		this->_mapData = other._mapData;
 	}
 	//std::cout << "BitcoinExchange copy assignment operator called." << std::endl;
 	return (*this);
 }
 
-bool	BitcoinExchange::isValid(std::string InFile, std::string DataFile)
+void	BitcoinExchange::isValid(std::string InFile, std::string DataFile)
 {
 	std::string line;
 	if (DataFile.find(".csv", 1) == std::string::npos)
@@ -46,15 +48,33 @@ bool	BitcoinExchange::isValid(std::string InFile, std::string DataFile)
 			throw std::invalid_argument("Input content is formatted wrong.");
 		std::string date = line.substr(0, pos);
 		std::string value = line.substr(pos, std::string::npos);
-		if (!isValidDate(date) || !isValidValue(value)){}
-			// dont add to map;
-		//fill the map
+		if (!isValidDate(date) || !isValidValue(value))
+		{
+			std::cout << "An entry of the input file was skipped because of an error." << std::endl;
+			continue ;
+		}
+		this->_mapInput.insert(date, value);
 	}
 
 	std::ifstream Data(DataFile.c_str());
 	if (!Data.is_open())
 		throw std::invalid_argument("Couldn't open the data file.");
-
+	while (getline(Data, line))
+	{
+		if (line.empty() || line == "date | value")
+			continue ;
+		size_t pos = line.find("|");
+		if (pos == std::string::npos)
+			throw std::invalid_argument("Input content is formatted wrong.");
+		std::string date = line.substr(0, pos);
+		std::string value = line.substr(pos, std::string::npos);
+		if (!isValidDate(date) || !isValidValue(value))
+		{
+			std::cout << "An entry of the input file was skipped because of an error." << std::endl;
+			continue ;
+		}
+		this->_mapData.insert(date, value);
+	}
 	
 }
 

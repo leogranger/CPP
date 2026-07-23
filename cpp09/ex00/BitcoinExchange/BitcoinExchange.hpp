@@ -12,7 +12,8 @@
 class BitcoinExchange
 {
 	private:
-		std::map<std::string, std::string> _map;
+		std::map<std::string, std::string> _mapInput;
+		std::map<std::string, std::string> _mapData;
 
 	public:
 
@@ -21,7 +22,7 @@ class BitcoinExchange
 	BitcoinExchange(const BitcoinExchange& other);
 	BitcoinExchange&	operator=(const BitcoinExchange& other);
 
-	bool	isValid(std::string InFile, std::string DataFile);
+	void	isValid(std::string InFile, std::string DataFile);
 	void	execute(std::string InFile, std::string DataFile);
 
 };
