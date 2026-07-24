@@ -6,9 +6,9 @@ OBJDIR = objs
 
 # Source files
 SRCS_MAIN = main.cpp
-SRCS_BTCOIN = BitcoinExchange/BitcoinExchange.cpp
+SRCS_BTCOIN = BitcoinExchange/BitcoinExchange.cpp BitcoinExchange/BitcoinExchangeUtils.cpp
 
-SRCS = $(SRCS_MAIN)
+SRCS = $(SRCS_MAIN) $(SRCS_BTCOIN)
 
 INCLUDES = -I. -IBitcoinExchange
 

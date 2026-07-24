@@ -1,6 +1,17 @@
 #include "BitcoinExchange.hpp"
-#include <cerrno>
-#include <cstdlib>
+
+void	strtrim(std::string &line)
+{
+	const std::string whiteSpace = "\t\n \r";
+	size_t pos_start = line.find_first_not_of(whiteSpace);
+	if (pos_start == std::string::npos)
+	{
+		line = "";
+		return;
+	}
+	size_t pos_end = line.find_last_not_of(whiteSpace);
+	line = line.substr(pos_start, pos_end - pos_start + 1);
+}
 
 static bool isLeap(long year)
 {
@@ -13,14 +24,14 @@ bool isValidDate(std::string date)
 {
 	if (date.empty())
 		return false;
-	else if (date.find("-", 0) != 4 || date.find("-", 5) != 8)
+	else if (date.find("-", 0) != 4 || date.find("-", 5) != 7)
 	{
 		std::cerr << "Error: Invalid format." << std::endl;
 		return false;
 	}
 
 	char *p = NULL;
-	std::string year = date.substr(0, 3);
+	std::string year = date.substr(0, 4);
 	long convertedYear = strtol(year.c_str(), &p, 10);
 	if (convertedYear > MAX_YEAR || convertedYear < MIN_YEAR
 		|| *p != '\0' || errno == ERANGE)
@@ -29,9 +40,9 @@ bool isValidDate(std::string date)
 		return false;
 	}
 
-	std::string month = date.substr(6, 7);
+	std::string month = date.substr(5, 6);
 	long convertedMonth = strtol(month.c_str(), &p, 10);
-	if (convertedMonth > 12 || convertedMonth < 1 || *p != '\0' || errno == ERANGE)
+	if (convertedMonth > 12 || convertedMonth < 1 || *p != '-' || errno == ERANGE)
 	{
 		std::cerr << "Error: Invalid month." << std::endl;
 		return false;
@@ -69,6 +80,7 @@ bool isValidValue(std::string value)
 	if (value.find(".", 0))
 	{
 		float convertedValue = (float)atof(value.c_str());
+		std::cout << "VALUE :" << value << std::endl;
 		if (convertedValue < 0 || convertedValue > 1000
 			|| convertedValue != value.size())
 		{
