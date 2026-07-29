@@ -50,9 +50,9 @@ void	BitcoinExchange::execute(std::string InFile, std::string DataFile)
 		strtrim(date);
 		std::string value = line.substr(pos + 1, std::string::npos);
 		strtrim(value);
-		if (!isValidDate(date) || !isValidValue(value))
+		if (!isValidDate(date) || !isValidValueData(value))
 			continue ;
-		double val = strtol(value.c_str(), NULL, 0);
+		double val = atof(value.c_str());
 		this->_mapData[date] = val;
 	}
 
@@ -68,7 +68,7 @@ void	BitcoinExchange::execute(std::string InFile, std::string DataFile)
 		size_t pos = line.find("|");
 		if (pos == std::string::npos)
 		{
-			throw std::invalid_argument("Input content is formatted wrong.");
+			std::cout << "Input content is formatted wrong." << std::endl;
 			continue ;
 		}
 		std::string date = line.substr(0, pos);
@@ -77,7 +77,7 @@ void	BitcoinExchange::execute(std::string InFile, std::string DataFile)
 		strtrim(value);
 		if (!isValidDate(date) || !isValidValue(value))
 			continue ;
-		double val = strtol(value.c_str(), NULL, 0);
+		double val = strtol(value.c_str(), NULL, 10);
 		std::map<std::string, double>::iterator	it = this->_mapData.lower_bound(date);
 		if (it != _mapData.end() && it->first == date)
 			std::cout << date << " => " << value << " = " << std::fixed << std::setprecision(2) << (val * it->second) << std::endl;

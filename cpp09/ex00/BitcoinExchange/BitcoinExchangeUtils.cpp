@@ -1,4 +1,6 @@
 #include "BitcoinExchange.hpp"
+#include <cctype>
+#include <climits>
 
 void	strtrim(std::string &line)
 {
@@ -48,7 +50,7 @@ bool isValidDate(std::string date)
 		return false;
 	}
 
-	std::string day = date.substr(9, 10);
+	std::string day = date.substr(8, 9);
 	long convertedDay = strtol(day.c_str(), &p, 10);
 	if (convertedDay > 31 || convertedDay < 1 || *p != '\0' || errno == ERANGE)
 	{
@@ -76,13 +78,21 @@ bool isValidValue(std::string value)
 {
 	if (value.empty())
 		return false;
-	char *p = NULL;
+	for (std::string::iterator it = value.begin(); it != value.end(); it++)
+	{
+			int i = 0;
+			if (*it == '.')
+				i++;
+			if (!std::isdigit(*it) && *it != '.' && i < 1)
+			{
+				std::cerr << "Error: Invalid value." << std::endl;
+				return false;
+			}
+	}
 	if (value.find(".", 0))
 	{
 		float convertedValue = (float)atof(value.c_str());
-		std::cout << "VALUE :" << value << std::endl;
-		if (convertedValue < 0 || convertedValue > 1000
-			|| convertedValue != value.size())
+		if (convertedValue < 0 || convertedValue > 1000)
 		{
 			std::cerr << "Error: Invalid value." << std::endl;
 			return false;
@@ -90,10 +100,47 @@ bool isValidValue(std::string value)
 	}
 	else
 	{
-		long convertedValue = strtol(value.c_str(), &p, 10);
+		long convertedValue = strtol(value.c_str(), NULL, 10);
 		if (convertedValue > 1000 || convertedValue < 0
-			|| *p != '\0' || errno == ERANGE)
+			|| errno == ERANGE)
 		{
+			std::cerr << "Error: Invalid value." << std::endl;
+			return false;
+		}
+	}
+	return true;
+}
+
+bool isValidValueData(std::string value)
+{
+	if (value.empty())
+		return false;
+	for (std::string::iterator it = value.begin(); it != value.end(); it++)
+	{
+		int i = 0;
+		if (*it == '.')
+			i++;
+		if (!std::isdigit(*it) && *it != '.' && i < 1)
+		{
+			std::cerr << "Error: Invalid value." << std::endl;
+			return false;
+		}
+	}
+	if (value.find(".", 0))
+	{
+		float convertedValue = (float)atof(value.c_str());
+		if (convertedValue < 0 || convertedValue > float(INT_MAX))
+		{
+			std::cerr << "Error: Invalid value." << std::endl;
+			return false;
+		}
+	}
+	else
+	{
+		long convertedValue = strtol(value.c_str(), NULL, 10);
+		if (convertedValue > INT_MAX || convertedValue < 0
+			|| errno == ERANGE)
+			{
 			std::cerr << "Error: Invalid value." << std::endl;
 			return false;
 		}

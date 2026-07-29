@@ -30,4 +30,5 @@ class BitcoinExchange
 
 bool	isValidDate(std::string date);
 bool	isValidValue(std::string value);
+bool	isValidValueData(std::string value);
 void	strtrim(std::string &line);
