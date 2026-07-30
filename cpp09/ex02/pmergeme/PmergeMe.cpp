@@ -1,4 +1,5 @@
 #include "PmergeMe.hpp"
+#include <algorithm>
 #include <cstddef>
 #include <vector>
 
@@ -81,13 +82,10 @@ void	swapByPair(std::vector<long>& vec, size_t lvl)
 	{
 		if (vec[index] > vec[index + lvl])
 		{
-			if (index == lvl - 1)
-				std::swap_ranges(vec.begin(), vec.begin() + lvl, vec.begin() + lvl);
-			else
-				std::swap_ranges(vec.begin() + index, vec.begin() + index + 1, vec.begin() + index + 1);
-			continue ;
+			size_t left = index + 1 - lvl;
+			std::swap_ranges(vec.begin() + left, vec.begin() + left + lvl, vec.begin() + left + lvl);
 		}
-		index = index + lvl * 2;
+		index += lvl * 2;
 	}
 }
 
