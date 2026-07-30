@@ -31,23 +31,25 @@ class PMergeMe
 	void	sortDeque(void);
 
 	template<typename T>
-	void	prepContainer(T& container)
+	bool	prepContainer(T& container)
 	{
 		std::cout << "Before: ";
 		for (int i = 0; container[i]; i++)
-			std::cout << container[i];
+			std::cout << container[i] << " ";
 		std::cout << std::endl;
 		size_t i = 0;
-		while (container[i])
+		while (i < container.size())
 		{
-			if (container[i] > container[i + 1])
-				break ;
+			if (container[i + 1] && container[i] > container[i + 1])
+					break ;
+			i++;
 		}
-		if (i < container.size())
+		if (i == container.size())
 		{
-			std::cout << "After: Sequence is already sorted.";
-			return ;
+			std::cout << "After: Sequence is already sorted." << std::endl;
+			return true;
 		}
+		return false;
 	}
 
 };

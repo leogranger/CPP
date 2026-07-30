@@ -1,4 +1,5 @@
 #include "PmergeMe.hpp"
+#include <cstddef>
 #include <vector>
 
 PMergeMe::PMergeMe(void)
@@ -74,12 +75,19 @@ void	PMergeMe::fillDeque(int ac, char **av)
 
 void	swapByPair(std::vector<long>& vec, size_t lvl)
 {
-	size_t	cmp = lvl - 1;
-	while (lvl * 2 - 1 <= vec.size())
+	size_t index = lvl - 1;
+
+	while (index + lvl < vec.size())
 	{
-		if (vec[cmp] > vec[lvl * 2 - 1])
-			std::swap_ranges(vec.begin() + cmp, vec.begin() + cmp + lvl - 1, vec.begin() + lvl);
-		cmp += lvl * 2;
+		if (vec[index] > vec[index + lvl])
+		{
+			if (index == lvl - 1)
+				std::swap_ranges(vec.begin(), vec.begin() + lvl, vec.begin() + lvl);
+			else
+				std::swap_ranges(vec.begin() + index, vec.begin() + index + 1, vec.begin() + index + 1);
+			continue ;
+		}
+		index = index + lvl * 2;
 	}
 }
 
@@ -88,18 +96,19 @@ void	FordJohnsonVector(std::vector<long>& vec, size_t lvl)
 	if (lvl > vec.size() / 2)
 		return ;
 	swapByPair(vec, lvl);
-	std::cout << "Before: ";
-	for (int i = 0; vec[i]; i++)
-		std::cout << vec[i];
-	std::cout << std::endl;
 	FordJohnsonVector(vec, lvl * 2);
 	return ;
 }
 
 void	PMergeMe::sortVector(void)
 {
-	prepContainer<std::vector<long> >(this->_PVector);
-	FordJohnsonVector( _PVector, 2);
+	if (prepContainer<std::vector<long> >(this->_PVector))
+		return ;
+	FordJohnsonVector( _PVector, 1);
+	std::cout << "After: ";
+	for (size_t i = 0; i < _PVector.size(); i++)
+		std::cout << _PVector[i] << " ";
+	std::cout << std::endl;
 	return ;
 }
 
@@ -112,8 +121,8 @@ void	PMergeMe::sortDeque(void)
 
 /*
 swapByPair:
-je compare i = + lvl - 1 avec lvl += lvl -1 (avec un check si i+lvl <= container.size())
-swap : swap_ranges(vec.begin() + i, vec.begin() + i + lvl - 1, vec.begin() + lvl, vec.begin() + lvl * 2 - 1);
-ensuite i+=lvl*2
-
+lvl 1: je compare 0 et 1, index + 2;
+lvl 2: je compare 1 et 3, index + 4;
+lvl 4: je compare 3 et 7, index + 8;
+etc.
 */
