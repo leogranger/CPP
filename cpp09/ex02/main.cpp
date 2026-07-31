@@ -21,14 +21,14 @@ int	main(int ac, char **av)
 		struct timeval end;
 		merge.checkNumbers(av);
 
-		gettimeofday(&start, NULL);
 		merge.fillVector(ac, av);
+		gettimeofday(&start, NULL);
 		merge.sortVector();
 		gettimeofday(&end, NULL);
 		double	vtime = getTimeDiff(start, end);
 
-		gettimeofday(&start, NULL);
 		merge.fillDeque(ac, av);
+		gettimeofday(&start, NULL);
 		merge.sortDeque();
 		gettimeofday(&end, NULL);
 		double	dtime = getTimeDiff(start, end);
