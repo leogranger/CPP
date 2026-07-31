@@ -53,16 +53,16 @@ class PMergeMe
 	}
 
 	template<typename T>
-	void	swapByPair(T& vec, size_t lvl)
+	void	swapByPair(T& container, size_t lvl)
 	{
 		size_t index = lvl - 1;
 
-		while (index + lvl < vec.size())
+		while (index + lvl < container.size())
 		{
-			if (vec[index] > vec[index + lvl])
+			if (container[index] > container[index + lvl])
 			{
 				size_t left = index + 1 - lvl;
-				std::swap_ranges(vec.begin() + left, vec.begin() + left + lvl, vec.begin() + left + lvl);
+				std::swap_ranges(container.begin() + left, container.begin() + left + lvl, container.begin() + left + lvl);
 			}
 			index += lvl * 2;
 		}
@@ -132,20 +132,20 @@ class PMergeMe
 	}
 
 	template<typename T>
-	void	FordJohnsonVector(T& vec, size_t lvl)
+	void	FordJohnson(T& container, size_t lvl)
 	{
 		//swap
-		if (lvl * 2 <= vec.size())
+		if (lvl * 2 <= container.size())
 		{
-			swapByPair(vec, lvl);
-			FordJohnsonVector(vec, lvl * 2);
+			swapByPair(container, lvl);
+			FordJohnson(container, lvl * 2);
 		}
 
 		// create and fill pend and long
 		T	pend;
 		T	main;
 		T	leftover;
-		pushPendAndMain(vec, pend, main, leftover, lvl);
+		pushPendAndMain(container, pend, main, leftover, lvl);
 		size_t pendGroups = pend.size() / lvl;
 		if (pendGroups == 0)
 			return ;
@@ -174,7 +174,7 @@ class PMergeMe
 		res.insert(res.end(), main.begin(), main.end());
 
 		//partner of the pend elements to then get the upperbound to binary search
-		std::vector<size_t>	partner(pendGroups);
+		T	partner(pendGroups);
 		for(size_t i = 0; i < pendGroups; i++)
 			partner[i] = i;
 
@@ -185,7 +185,7 @@ class PMergeMe
 			long	value = pend[group * lvl + (lvl - 1)];
 			size_t	upperBound = partner[group];
 			size_t	pos = binarySearchInsertPos(res, value, upperBound, lvl);
-			size_t	insertGroup = pos / lvl;
+			long	insertGroup = pos / lvl;
 
 			res.insert(res.begin() + pos,
 						pend.begin() + group * lvl,
@@ -199,7 +199,7 @@ class PMergeMe
 			}
 		}
 		handleLeftover(res, leftover, lvl);
-		vec.swap(res);
+		container.swap(res);
 		return ;
 	}
 

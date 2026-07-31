@@ -78,7 +78,7 @@ void	PMergeMe::sortVector(void)
 {
 	if (prepContainer<std::vector<long> >(this->_PVector))
 		return ;
-	FordJohnsonVector<std::vector<long> >( _PVector, 1);
+	FordJohnson<std::vector<long> >( _PVector, 1);
 	std::cout << "After: ";
 	for (size_t i = 0; i < _PVector.size(); i++)
 		std::cout << _PVector[i] << " ";
@@ -90,7 +90,7 @@ void	PMergeMe::sortDeque(void)
 {
 	if (prepContainer<std::deque<long> >(this->_PDeque))
 		return ;
-	FordJohnsonVector<std::deque<long> >( _PDeque, 1);
+	FordJohnson<std::deque<long> >( _PDeque, 1);
 	std::cout << "After: ";
 	for (size_t i = 0; i < _PDeque.size(); i++)
 		std::cout << _PDeque[i] << " ";
