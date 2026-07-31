@@ -92,9 +92,9 @@ void	swapByPair(std::vector<long>& vec, size_t lvl)
 void	pushPendAndMain(std::vector<long>& src, std::vector<long>& pend, std::vector<long>& main, size_t lvl)
 {
 	size_t	start = lvl * 2;
+	size_t p = 0;
 	for(size_t i = 0; i < src.size(); i++)
 	{
-		size_t p = 0;
 		while (i < start && src[i])
 		{
 			main.push_back(src[i]);
@@ -102,7 +102,7 @@ void	pushPendAndMain(std::vector<long>& src, std::vector<long>& pend, std::vecto
 		}
 		if (p % 2 == 0)
 		{
-			for (size_t j = 0; j <= lvl && src[i]; j++)
+			for (size_t j = 0; j < lvl && i < src.size(); j++)
 			{
 				pend.push_back(src[i]);
 				i++;
@@ -110,7 +110,7 @@ void	pushPendAndMain(std::vector<long>& src, std::vector<long>& pend, std::vecto
 		}
 		else
 		{
-			for (size_t j = 0; j <= lvl && src[i]; j++)
+			for (size_t j = 0; j < lvl && i < src.size(); j++)
 			{
 				main.push_back(src[i]);
 				i++;
@@ -141,7 +141,7 @@ size_t	binarySearchInsertPos(std::vector<long>& res, long value, size_t upperBou
 void	FordJohnsonVector(std::vector<long>& vec, size_t lvl)
 {
 	//swap
-	if (lvl < vec.size() / 2)
+	if (lvl <= vec.size() / 2)
 	{
 		swapByPair(vec, lvl);
 		FordJohnsonVector(vec, lvl * 2);
@@ -238,9 +238,3 @@ void	PMergeMe::sortDeque(void)
 	prepContainer(this->_PDeque);
 }
 
-/*
-fordJohnson:
-swap: done.
-vector pend = b2, b3,...,bn -> include lvl elements / 2 after skipping lvl * 2 elements
-vector main = b1, a1, a2,...,an
-*/
