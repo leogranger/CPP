@@ -102,7 +102,7 @@ void	pushPendAndMain(std::vector<long>& src, std::vector<long>& pend, std::vecto
 		}
 		if (p % 2 == 0)
 		{
-			for (size_t j = 0; j < lvl && src[i]; j++)
+			for (size_t j = 0; j <= lvl && src[i]; j++)
 			{
 				pend.push_back(src[i]);
 				i++;
@@ -110,7 +110,7 @@ void	pushPendAndMain(std::vector<long>& src, std::vector<long>& pend, std::vecto
 		}
 		else
 		{
-			for (size_t j = 0; j < lvl && src[i]; j++)
+			for (size_t j = 0; j <= lvl && src[i]; j++)
 			{
 				main.push_back(src[i]);
 				i++;
@@ -141,16 +141,25 @@ size_t	binarySearchInsertPos(std::vector<long>& res, long value, size_t upperBou
 void	FordJohnsonVector(std::vector<long>& vec, size_t lvl)
 {
 	//swap
-	if (lvl <= vec.size() / 2)
+	if (lvl < vec.size() / 2)
 	{
 		swapByPair(vec, lvl);
 		FordJohnsonVector(vec, lvl * 2);
 	}
 
+	std::cout << "LEVEL: " << lvl << std::endl;
 	// create and fill pend and long
 	std::vector<long>	pend;
 	std::vector<long>	main;
 	pushPendAndMain(vec, pend, main, lvl);
+	std::cout << "Pend: ";
+	for (size_t i = 0; i < pend.size(); i++)
+			std::cout << pend[i] << " ";
+	std::cout << std::endl;
+	std::cout << "Main: ";
+	for (size_t i = 0; i < main.size(); i++)
+			std::cout << main[i] << " ";
+	std::cout << std::endl;
 	size_t pendGroups = pend.size() / lvl;
 	if (pendGroups == 0)
 		return ;
@@ -195,6 +204,11 @@ void	FordJohnsonVector(std::vector<long>& vec, size_t lvl)
 		res.insert(res.begin() + pos,
 					pend.begin() + group * lvl,
 					pend.begin() + group * lvl + lvl);
+		// std::cout << "after insert: ";
+		// for (size_t i = 0; i < res.size(); i++)
+		// 	std::cout << res[i] << " ";
+		// std::cout << std::endl;
+
 		
 		//shift the bigger partner by 1 because we just inserted a group
 		for(size_t j = 0; j < pendGroups; j++)
