@@ -89,12 +89,81 @@ void	swapByPair(std::vector<long>& vec, size_t lvl)
 	}
 }
 
+void	pushPendAndMain(std::vector<long>& src, std::vector<long>& pend, std::vector<long>& main, size_t lvl)
+{
+	size_t	start = lvl * 2;
+	for(size_t i = 0; i < src.size(); i++)
+	{
+		size_t p = 0;
+		while (i < start && src[i])
+		{
+			main.push_back(src[i]);
+			i++;
+		}
+		if (p % 2 == 0)
+		{
+			for (size_t j = 0; j < lvl && src[i]; j++)
+			{
+				pend.push_back(src[i]);
+				i++;
+			}
+		}
+		else
+		{
+			for (size_t j = 0; j < lvl && src[i]; j++)
+			{
+				main.push_back(src[i]);
+				i++;
+			}
+		}
+		p++;
+	}
+}
+
 void	FordJohnsonVector(std::vector<long>& vec, size_t lvl)
 {
-	if (lvl > vec.size() / 2)
+	//swap
+	if (lvl <= vec.size() / 2)
+	{
+		swapByPair(vec, lvl);
+		FordJohnsonVector(vec, lvl * 2);
+	}
+
+	// create and fill pend and long
+	std::vector<long>	pend;
+	std::vector<long>	main;
+	pushPendAndMain(vec, pend, main, lvl);
+	if (lvl > pend.size() - 1)
 		return ;
-	swapByPair(vec, lvl);
-	FordJohnsonVector(vec, lvl * 2);
+
+	//find order in which pend has to be inserted (with indexes of pend)
+	std::vector<long>	order;
+	size_t				prev = 1;
+	size_t				jac = 3;
+	while (prev < pend.size())
+	{
+		size_t stop;
+		if (jac < pend.size())
+			stop = jac;
+		else
+			stop = pend.size();
+		for(size_t i = stop; i > prev; i--)
+			order.push_back(i - 1);
+		size_t next = jac + 2 * prev;
+		prev = jac;
+		jac = next;
+	}
+
+	//prep res with smallest number at the start
+	std::vector<long>	res;
+	res.push_back(pend[0]);
+	for(size_t i = 0; i < main.size(); i++)
+		res.push_back(main[i]);
+
+	//insert following the order we founded before
+	
+
+
 	return ;
 }
 
@@ -103,10 +172,10 @@ void	PMergeMe::sortVector(void)
 	if (prepContainer<std::vector<long> >(this->_PVector))
 		return ;
 	FordJohnsonVector( _PVector, 1);
-	std::cout << "After: ";
-	for (size_t i = 0; i < _PVector.size(); i++)
-		std::cout << _PVector[i] << " ";
-	std::cout << std::endl;
+	// std::cout << "After: ";
+	// for (size_t i = 0; i < _PVector.size(); i++)
+	// 	std::cout << _PVector[i] << " ";
+	// std::cout << std::endl;
 	return ;
 }
 
@@ -115,12 +184,9 @@ void	PMergeMe::sortDeque(void)
 	prepContainer(this->_PDeque);
 }
 
-
-
 /*
-swapByPair:
-lvl 1: je compare 0 et 1, index + 2;
-lvl 2: je compare 1 et 3, index + 4;
-lvl 4: je compare 3 et 7, index + 8;
-etc.
+fordJohnson:
+swap: done.
+vector pend = b2, b3,...,bn -> include lvl elements / 2 after skipping lvl * 2 elements
+vector main = b1, a1, a2,...,an
 */
