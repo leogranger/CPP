@@ -4,7 +4,7 @@
 
 double	getTimeDiff(struct timeval& start, struct timeval& end)
 {
-	return ((end.tv_usec - start.tv_usec) * 1e6);
+	return ((end.tv_sec - start.tv_sec) * 1e6 + (end.tv_usec - start.tv_usec));
 }
 
 int	main(int ac, char **av)
@@ -17,26 +17,26 @@ int	main(int ac, char **av)
 	try
 	{
 		PMergeMe merge;
-		//struct timeval start;
-		//struct timeval end;
+		struct timeval start;
+		struct timeval end;
 		merge.checkNumbers(av);
 
-		//gettimeofday(&start, NULL);
+		gettimeofday(&start, NULL);
 		merge.fillVector(ac, av);
 		merge.sortVector();
-		//gettimeofday(&end, NULL);
-		//long	vtime = getTimeDiff(start, end);
+		gettimeofday(&end, NULL);
+		double	vtime = getTimeDiff(start, end);
 
-		// gettimeofday(&start, NULL);
-		// merge.fillDeque(ac, av);
-		// merge.sortDeque();
-		// gettimeofday(&end, NULL);
-		// long	dtime = getTimeDiff(start, end);
+		gettimeofday(&start, NULL);
+		merge.fillDeque(ac, av);
+		merge.sortDeque();
+		gettimeofday(&end, NULL);
+		double	dtime = getTimeDiff(start, end);
 
-		// std::cout << "Time to sort " << merge.getVector().size() << " numbers using a vector: "
-		// 		<< vtime << " us" << std::endl;
-		// std::cout << "Time to sort " << merge.getDeque().size() << " numbers using a deque: "
-		// 		<< dtime << " us" << std::endl;
+		std::cout << "Time to sort " << merge.getVector().size() << " numbers using a vector: "
+				<< vtime << " us" << std::endl;
+		std::cout << "Time to sort " << merge.getDeque().size() << " numbers using a deque: "
+				<< dtime << " us" << std::endl;
 	}
 	catch (std::exception& e)
 	{
