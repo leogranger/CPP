@@ -120,6 +120,24 @@ void	pushPendAndMain(std::vector<long>& src, std::vector<long>& pend, std::vecto
 	}
 }
 
+size_t	binarySearchInsertPos(std::vector<long>& res, long value, size_t upperBound, size_t lvl)
+{
+	size_t low = 0;
+	size_t high = upperBound;
+
+	while (low < high)
+	{
+		size_t	mid = low + (high - low) / 2;
+		long	midVal = res[mid * lvl + (lvl - 1)];
+
+		if (midVal < value)
+			low = mid + 1;
+		else
+			high = mid;
+	}
+	return (low * lvl);	//to get the right group index when lvl > 1
+}
+
 void	FordJohnsonVector(std::vector<long>& vec, size_t lvl)
 {
 	//swap
@@ -133,20 +151,21 @@ void	FordJohnsonVector(std::vector<long>& vec, size_t lvl)
 	std::vector<long>	pend;
 	std::vector<long>	main;
 	pushPendAndMain(vec, pend, main, lvl);
-	if (lvl > pend.size() - 1)
+	size_t pendGroups = pend.size() / lvl;
+	if (pendGroups == 0)
 		return ;
 
 	//find order in which pend has to be inserted (with indexes of pend)
 	std::vector<long>	order;
 	size_t				prev = 1;
 	size_t				jac = 3;
-	while (prev < pend.size())
+	while (prev < pendGroups)
 	{
 		size_t stop;
-		if (jac < pend.size())
+		if (jac < pendGroups)
 			stop = jac;
 		else
-			stop = pend.size();
+			stop = pendGroups;
 		for(size_t i = stop; i > prev; i--)
 			order.push_back(i - 1);
 		size_t next = jac + 2 * prev;
@@ -156,14 +175,35 @@ void	FordJohnsonVector(std::vector<long>& vec, size_t lvl)
 
 	//prep res with smallest number at the start
 	std::vector<long>	res;
-	res.push_back(pend[0]);
-	for(size_t i = 0; i < main.size(); i++)
-		res.push_back(main[i]);
+	res.insert(res.end(), pend.begin(), pend.begin() + lvl);
+	res.insert(res.end(), main.begin(), main.end());
+
+	//partner of the pend elements to then get the upperbound to binary search
+	std::vector<size_t>	partner(pendGroups);
+	for(size_t i = 0; i < pendGroups; i++)
+		partner[i] = i;
 
 	//insert following the order we founded before
-	
+	for(size_t i = 0; i < order.size(); i++)
+	{
+		size_t	group = order[i];
+		long	value = pend[group * lvl + (lvl - 1)];
+		size_t	upperBound = partner[group];
+		size_t	pos = binarySearchInsertPos(res, value, upperBound, lvl);
+		size_t	insertGroup = pos / lvl;
 
-
+		res.insert(res.begin() + pos,
+					pend.begin() + group * lvl,
+					pend.begin() + group * lvl + lvl);
+		
+		//shift the bigger partner by 1 because we just inserted a group
+		for(size_t j = 0; j < pendGroups; j++)
+		{
+			if (partner[j] >= insertGroup)
+				partner[j]++;
+		}
+	}
+	vec = res;
 	return ;
 }
 
@@ -172,10 +212,10 @@ void	PMergeMe::sortVector(void)
 	if (prepContainer<std::vector<long> >(this->_PVector))
 		return ;
 	FordJohnsonVector( _PVector, 1);
-	// std::cout << "After: ";
-	// for (size_t i = 0; i < _PVector.size(); i++)
-	// 	std::cout << _PVector[i] << " ";
-	// std::cout << std::endl;
+	std::cout << "After: ";
+	for (size_t i = 0; i < _PVector.size(); i++)
+		std::cout << _PVector[i] << " ";
+	std::cout << std::endl;
 	return ;
 }
 
