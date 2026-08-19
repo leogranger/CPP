@@ -1,7 +1,7 @@
 #pragma once
 
 # include <iostream>
-# include <exception
+# include <exception>
 
 template<typename T>
 class Array
