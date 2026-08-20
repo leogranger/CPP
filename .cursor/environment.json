@@ -1,0 +1,5 @@
+{
+  "name": "42 C++ Modules",
+  "user": "ubuntu",
+  "install": "sudo update-alternatives --set c++ /usr/bin/g++"
+}
